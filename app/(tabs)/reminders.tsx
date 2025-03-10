@@ -2,21 +2,17 @@ import { View, Text, StyleSheet, Switch, ScrollView } from 'react-native';
 import { useState } from 'react';
 
 export default function RemindersScreen() {
-  const [notifications, setNotifications] = useState({
-    events: true,
-    giftSuggestions: true,
-    dateIdeas: false,
-    weekBefore: true,
-    dayBefore: true,
-    dayOf: true,
-  });
+  const [eventsEnabled, setEventsEnabled] = useState(true);
+const [giftSuggestionsEnabled, setGiftSuggestionsEnabled] = useState(true);
+const [dateIdeasEnabled, setDateIdeasEnabled] = useState(false);
+const [weekBeforeEnabled, setWeekBeforeEnabled] = useState(true);
+const [dayBeforeEnabled, setDayBeforeEnabled] = useState(true);
+const [dayOfEnabled, setDayOfEnabled] = useState(true);
 
-  const toggleSwitch = (key: keyof typeof notifications) => {
-    setNotifications(prev => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  };
+const toggleSwitch = useCallback(
+  (setter: React.Dispatch<React.SetStateAction<boolean>>) => () => setter(prev => !prev),
+  []
+);
 
   return (
     <ScrollView style={styles.container}>

@@ -105,7 +105,33 @@ export const useGifts = () => {
 };
 ```
 
+## Documentation Structure
+
+📚 **Core Guides**:
+- [Getting Started](/docs/getting-started.md) - Environment setup & installation
+- [Component Docs](/docs/components.md) - UI component specifications
+- [Authentication Guide](/docs/authentication.md) - Supabase integration
+- [Best Practices](/docs/best-practices.md) - Coding standards & security
+
+## Documentation Roadmap
+- [ ] Add performance benchmarking guide
+- [ ] Create testing strategy document
+- [ ] Develop deployment playbook
+
 ## Contributing
+Help us improve documentation by:
+1. Following our [style guide](CONTRIBUTING.md#documentation)
+2. Using the template:
+```markdown
+## Feature Name
+
+### Purpose
+<!-- Describe functionality -->
+
+### Implementation
+```
+3. Submitting PRs to the `docs` directory
+
 ### Code Standards
 1. TypeScript strict mode
 2. Functional components with hooks

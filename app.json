@@ -1,5 +1,9 @@
 {
   "expo": {
+    "extra": {
+      "supabaseUrl": "https://fdagmiviwysvfilycgun.supabase.co",
+      "supabaseKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkYWdtaXZpd3lzdmZpbHljZ3VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAyMzc5NDQsImV4cCI6MjA1NTgxMzk0NH0.dtIcu-LFvhjtWWCxnPVR80Ec3lHljwZT0ZNV3nghEAA"
+    },
     "name": "Nebula-Singularity",
     "slug": "nebula-singularity",
     "scheme": "nebula",

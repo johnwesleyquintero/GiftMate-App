@@ -1,12 +1,18 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { LucideIcon } from 'lucide-react-native';
+import { useTrackActivity } from '../hooks/useTrackActivity';
 
 interface GiftCardProps {
   title: string;
   description?: string;
   price: number;
   imageUrl: string;
+  giftId: string;
+  location?: { latitude: number; longitude: number };
+  currentLocation?: { latitude: number; longitude: number };
+  partnerType?: 'restaurant' | 'experience' | 'retail';
+  verified?: boolean;
   onPress?: () => void;
   isSelected?: boolean;
   icon?: LucideIcon;
@@ -31,9 +37,25 @@ export const GiftCard = ({
   isSelected = false,
   icon: Icon,
 }: GiftCardProps) => {
+  const { trackActivity } = useTrackActivity();
+
+  const handlePress = () => {
+    trackActivity(giftId, 'view');
+    handlePurchase;
+  };
+
+  const handleSave = () => {
+    trackActivity(giftId, 'save');
+    handlePurchase;
+  };
+
+  const handlePurchase = () => {
+    trackActivity(giftId, 'purchase');
+    handlePurchase;
+  };
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={handleSave}
       style={[styles.container, isSelected && styles.selectedContainer]}
     >
       <Image
@@ -112,3 +134,7 @@ const styles = StyleSheet.create({
     color: '#3B82F6',
   },
 });
+
+// Update JSX:
+<TouchableOpacity onPress={handleSave}>...</TouchableOpacity>
+<TouchableOpacity onPress={handlePurchase}>...</TouchableOpacity>
