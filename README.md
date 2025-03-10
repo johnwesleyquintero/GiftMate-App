@@ -1,111 +1,143 @@
 # GiftMate - Relationship Companion App
 
-## Installation & Setup
+## Tech Stack
+- **Frontend**: React Native, Expo
+- **State Management**: React Context API
+- **Styling**: NativeWind (Tailwind CSS)
+- **Navigation**: React Navigation
+- **Backend**: Supabase (Auth, Database, Storage)
+- **Tooling**: TypeScript, Prettier, ESLint
+
+## Installation
 ```bash
 git clone https://github.com/your-org/giftmate-app.git
 cd giftmate-app
 npm install
+```
 
-# Configure environment variables
+## Development Setup
+1. Create `.env` file from template:
+```bash
 cp .env.example .env
 ```
+2. Configure Supabase credentials:
+```ini
+SUPABASE_URL=your-project-url
+SUPABASE_KEY=your-anon-key
+```
+3. Start development server:
+```bash
+npm run dev
+```
 
-## Tech Stack
-| Technology | Purpose |
-|------------|---------|
-| React Native | Cross-platform UI framework |
-| Expo | Development platform |
-| Supabase | Backend services (Auth/DB) |
-| NativeWind | Tailwind CSS for React Native |
-| React Navigation | Routing & navigation |
-
-## Documentation
-### Components
+## Authentication Guide
+### Email/Password Flow
 ```tsx
-/**
- * ErrorBoundary component
- * @param {ReactNode} children - Child components to wrap
- * @param {string} fallback - Fallback UI when errors occur
- */
-export function ErrorBoundary({ children, fallback }) {
-  // Component implementation
+// app/auth/SignUpScreen.tsx
+export const SignUpForm = () => {
+  const { signUp } = useAuth();
+
+  const handleSubmit = async (email: string, password: string) => {
+    try {
+      await signUp(email, password);
+      router.replace('/dashboard');
+    } catch (error) {
+      showErrorAlert(error.message);
+    }
+  };
+
+  return <AuthForm type="signup" onSubmit={handleSubmit} />;
+};
+```
+
+### OAuth Providers
+```tsx
+// hooks/useAuth.ts
+export const useAuth = () => {
+  const signInWithOAuth = async (provider: 'google' | 'apple') => {
+    const { error } = await supabase.auth.signInWithOAuth({ provider });
+    if (error) throw new AuthenticationError(error.message);
+  };
+
+  return { signInWithOAuth };
+};
+```
+
+## Component Documentation
+### GiftCard Component
+```tsx
+// components/GiftCard.tsx
+interface GiftCardProps {
+  gift: Gift;
+  onPress?: () => void;
 }
+
+export const GiftCard = ({ gift, onPress }: GiftCardProps) => (
+  <Pressable onPress={onPress}>
+    <Image source={{ uri: gift.imageUrl }} />
+    <Text>{gift.name}</Text>
+    <Text>{gift.description}</Text>
+  </Pressable>
+);
 ```
 
-### API Usage
-```tsx
-// Example API call using useApi hook
-const { data, error } = useApi('/users/current', {
-  headers: { Authorization: `Bearer ${token}` }
-});
-```
-
-## Authentication Flow
-1. User initiates OAuth flow
-2. Expo WebBrowser handles redirect
-3. Supabase returns session token
-4. Token stored in secure storage
+**Props**:
+- `gift`: Gift object containing details
+- `onPress`: Callback when card is pressed
 
 ## Supabase Integration
-```ts
-// Example realtime subscription
-const channel = supabase
-  .channel('gift-updates')
-  .on('postgres_changes', {
-    event: 'INSERT',
-    schema: 'public',
-    table: 'gifts'
-  }, payload => {
-    updateGiftList(payload.new);
-  })
-  .subscribe();
+### Real-time Subscriptions
+```tsx
+// hooks/useGifts.ts
+export const useGifts = () => {
+  useEffect(() => {
+    const channel = supabase
+      .channel('gifts')
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'gifts'
+      }, handleGiftUpdate)
+      .subscribe();
+
+    return () => { channel.unsubscribe(); };
+  }, []);
+};
 ```
+
+## Contributing
+### Code Standards
+1. TypeScript strict mode
+2. Functional components with hooks
+3. Atomic design pattern
+4. 80% test coverage
+
+### PR Checklist
+- [ ] Linting passes
+- [ ] Tests updated
+- [ ] Documentation added
+- [ ] Supabase migrations (if needed)
 
 ## Troubleshooting
 | Error | Solution |
 |-------|----------|
-| Expo SDK Compatibility | Check `expo doctor` output |
-| Supabase Connection | Verify environment variables |
-| NativeWind Styling | Restart Metro bundler |
+| `Network Request Failed` | Check Supabase URL/Key |
+| `Invalid OAuth Credentials` | Verify deep linking setup |
+| `Expo SDK Mismatch` | Run `expo doctor --fix` |
 
-## Best Practices
-- Use typed hooks with `useApi` for all network requests
-- Follow Atomic Design pattern for components
-- Implement error boundaries at route level
-- Use Supabase RLS for database security
+## Performance Tips
+1. Memoize expensive computations
+2. Virtualize long lists
+3. Optimize image sizes
+4. Batch Supabase requests
+5. Use error boundaries
 
-## Contributing
-### Code Review Process
-1. Create feature branch from `main`
-2. Submit PR with detailed description
-3. Address linting errors
-4. Pass all CI checks
-5. Maintain 80% test coverage
-
-### Performance Checklist
-- [ ] Memoize expensive computations
-- [ ] Use FlatList for long lists
-- [ ] Optimize image assets
-- [ ] Monitor re-renders
-
-### Building for Production
-```bash
-# iOS build
-npm run ios
-
-# Android build
-npm run android
-```
-
-## Contributing
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-ISC © [Your Name]
+## Security Practices
+- Row Level Security (RLS) enabled
+- JWT refresh every 15 minutes
+- SecureStore for sensitive data
+- Input sanitization for DB queries
 
 ---
-*Repository created by Bolt to GitHub extension*
+
+*Documentation version: 1.2.0 | Last updated: ${new Date().toISOString().split('T')[0]}*
