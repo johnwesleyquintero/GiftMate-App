@@ -1,60 +1,92 @@
 # GiftMate - Relationship Companion App
 
-![App Preview](./assets/images/icon.png)
-
-A thoughtful reminder system for relationship milestones and gift suggestions, powered by React Native and Expo.
-
-## Features
-- 🎁 Personalized gift recommendations
-- 📅 Event reminders & anniversary tracking
-- 💡 Curated date night ideas
-- 🔔 Customizable notification system
-- 🌐 Social media integration for special moments
-
-## Getting Started
-
-### Prerequisites
-- Node.js 18+ 
-- Expo CLI (`npm install --global expo-cli`)
-- iOS/Android simulator or physical device
-
-### Installation
+## Installation & Setup
 ```bash
-git clone https://github.com/yourusername/GiftMate-App.git
-cd GiftMate-App
+git clone https://github.com/your-org/giftmate-app.git
+cd giftmate-app
 npm install
-```
 
-### Configuration
-1. Create `.env` file with your Supabase credentials:
-```env
-SUPABASE_URL=your-supabase-url
-SUPABASE_KEY=your-supabase-key
-```
-
-### Running the App
-```bash
-# Start development server
-npm run dev
+# Configure environment variables
+cp .env.example .env
 ```
 
 ## Tech Stack
-- ⚛️ React Native
-- 🚀 Expo
-- 🗃️ Supabase
-- 📱 React Navigation
-- 🎨 NativeWind
-- 🦋 Lucide Icons
+| Technology | Purpose |
+|------------|---------|
+| React Native | Cross-platform UI framework |
+| Expo | Development platform |
+| Supabase | Backend services (Auth/DB) |
+| NativeWind | Tailwind CSS for React Native |
+| React Navigation | Routing & navigation |
 
-## Development
+## Documentation
+### Components
+```tsx
+/**
+ * ErrorBoundary component
+ * @param {ReactNode} children - Child components to wrap
+ * @param {string} fallback - Fallback UI when errors occur
+ */
+export function ErrorBoundary({ children, fallback }) {
+  // Component implementation
+}
+```
 
-### Project Structure
+### API Usage
+```tsx
+// Example API call using useApi hook
+const { data, error } = useApi('/users/current', {
+  headers: { Authorization: `Bearer ${token}` }
+});
 ```
-/app
-  /(tabs)       # Main navigation sections
-  /assets       # Media resources
-/hooks         # Custom React hooks
+
+## Authentication Flow
+1. User initiates OAuth flow
+2. Expo WebBrowser handles redirect
+3. Supabase returns session token
+4. Token stored in secure storage
+
+## Supabase Integration
+```ts
+// Example realtime subscription
+const channel = supabase
+  .channel('gift-updates')
+  .on('postgres_changes', {
+    event: 'INSERT',
+    schema: 'public',
+    table: 'gifts'
+  }, payload => {
+    updateGiftList(payload.new);
+  })
+  .subscribe();
 ```
+
+## Troubleshooting
+| Error | Solution |
+|-------|----------|
+| Expo SDK Compatibility | Check `expo doctor` output |
+| Supabase Connection | Verify environment variables |
+| NativeWind Styling | Restart Metro bundler |
+
+## Best Practices
+- Use typed hooks with `useApi` for all network requests
+- Follow Atomic Design pattern for components
+- Implement error boundaries at route level
+- Use Supabase RLS for database security
+
+## Contributing
+### Code Review Process
+1. Create feature branch from `main`
+2. Submit PR with detailed description
+3. Address linting errors
+4. Pass all CI checks
+5. Maintain 80% test coverage
+
+### Performance Checklist
+- [ ] Memoize expensive computations
+- [ ] Use FlatList for long lists
+- [ ] Optimize image assets
+- [ ] Monitor re-renders
 
 ### Building for Production
 ```bash
