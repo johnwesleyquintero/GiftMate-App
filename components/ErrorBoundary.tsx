@@ -24,7 +24,23 @@ export default function ErrorBoundary({
   onError?: (error: Error) => void;
   onReset?: () => void;
 }) {
-  // ... existing code ...
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: theme.colors.cardBackground,
+      borderRadius: theme.radii.md,
+      padding: theme.spacing.lg,
+      margin: theme.spacing.xl
+    },
+    errorText: {
+      ...theme.typography.body,
+      color: theme.colors.error
+    },
+    retryButton: {
+      backgroundColor: theme.colors.primary,
+      padding: theme.spacing.md,
+      borderRadius: theme.radii.sm
+    }
+  });
 }
 
 /**

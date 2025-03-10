@@ -28,26 +28,28 @@ interface GiftCardProps {
  * @param {boolean} isSelected - Visual selection state
  * @param {LucideIcon} icon - Optional icon from Lucide library
  */
-export const GiftCard = ({
+export const GiftCard = React.memo(({
   title,
   description,
   price,
   imageUrl,
+  giftId,
   onPress,
   isSelected = false,
   icon: Icon,
 }: GiftCardProps) => {
   const { trackActivity } = useTrackActivity();
 
-  const handlePress = () => {
+  const handlePress = useCallback(() => {
+    HapticFeedback.trigger('impactMedium');
     trackActivity(giftId, 'view');
-    handlePurchase;
-  };
+    onPress?.();
+  }, [giftId, onPress, trackActivity]);
 
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
+    HapticFeedback.trigger('notificationSuccess');
     trackActivity(giftId, 'save');
-    handlePurchase;
-  };
+  }, [giftId, trackActivity]);
 
   const handlePurchase = () => {
     trackActivity(giftId, 'purchase');
@@ -59,9 +61,13 @@ export const GiftCard = ({
       style={[styles.container, isSelected && styles.selectedContainer]}
     >
       <Image
-        source={{ uri: imageUrl }}
+        source={{ 
+          uri: imageUrl,
+          cache: 'force-cache'
+        }}
         style={styles.image}
         accessibilityLabel={title}
+        accessibilityRole="image"
       />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{title}</Text>
@@ -86,55 +92,66 @@ export const GiftCard = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFF',
-    borderRadius: 12,
-    padding: 16,
-    marginVertical: 8,
-    flexDirection: 'row',
-    shadowColor: '#000',
+    backgroundColor: theme.colors.cardBackground,
+    borderRadius: theme.radii.lg,
+    padding: theme.spacing.md,
+    marginVertical: theme.spacing.sm,
+    shadowColor: theme.colors.border,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowRadius: 6,
+  },
+  title: {
+    ...theme.typography.body,
+    color: theme.colors.text,
+    marginBottom: theme.spacing.xs,
+  },
+  description: {
+    ...theme.typography.body,
+    color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.sm,
+  },
+  price: {
+    ...theme.typography.body,
+    color: theme.colors.primary,
+  },
+  image: {
+    borderRadius: theme.radii.md,
+    marginRight: theme.spacing.md,
   },
   selectedContainer: {
     borderWidth: 2,
-    borderColor: '#3B82F6',
-    backgroundColor: '#EFF6FF',
-  },
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
-    marginRight: 16,
-  },
-  detailsContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
+    borderColor: theme.colors.primary,
+    backgroundColor: theme.colors.surface,
   },
   title: {
-    fontSize: 16,
+    fontSize: theme.typography.body.fontSize,
     fontWeight: '600',
-    marginBottom: 4,
-    color: '#1F2937',
+    marginBottom: theme.spacing.xs,
+    color: theme.colors.text,
   },
   description: {
-    fontSize: 14,
-    color: '#6B7280',
-    marginBottom: 8,
-  },
-  priceRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+    fontSize: theme.typography.caption.fontSize,
+    color: theme.colors.subtext,
+    marginBottom: theme.spacing.sm,
   },
   price: {
-    fontSize: 16,
+    fontSize: theme.typography.body.fontSize,
     fontWeight: '700',
-    color: '#3B82F6',
+    color: theme.colors.primary,
   },
 });
 
 // Update JSX:
-<TouchableOpacity onPress={handleSave}>...</TouchableOpacity>
+<TouchableOpacity 
+  accessible={true}
+  accessibilityLabel={`${title} card, price ${price}`}
+  accessibilityRole="button"
+  onPress={handlePress}
+>...</TouchableOpacity>
 <TouchableOpacity onPress={handlePurchase}>...</TouchableOpacity>
+<TouchableOpacity 
+  onPress={handleSave}
+  accessibilityLabel="Save gift"
+  accessibilityHint="Saves this gift to your favorites"
+>...</TouchableOpacity>
