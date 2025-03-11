@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import HapticFeedback from 'expo-haptics';
 import { LucideIcon } from 'lucide-react-native';
 import { useTrackActivity } from '../hooks/useTrackActivity';
 

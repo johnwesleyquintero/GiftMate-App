@@ -2,29 +2,20 @@ import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFrameworkReady } from '../hooks/useFrameworkReady';
-import { View } from 'react-native';
+import { LoadingScreen } from '../components/LoadingScreen';
+import { ThemeProvider } from '../config/theme';
+import { AppNavigator } from '../lib/navigation';
 
 export default function RootLayout() {
-  const { ready, error } = useFrameworkReady();
+  const { isReady, error } = useFrameworkReady();
 
-  if (!ready) {
-    return <ActivityIndicator size="large" style={{ flex: 1 }} />;
-  }
-
-  if (error) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Failed to initialize app: {error.message}</Text>
-      </View>
-    );
+  if (!isReady) {
+    return <LoadingScreen error={error} />;
   }
 
   return (
-    <FrameworkInitializer>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </FrameworkInitializer>
+    <ThemeProvider>
+      <AppNavigator />
+    </ThemeProvider>
   );
 }
