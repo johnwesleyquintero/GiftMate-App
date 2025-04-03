@@ -1,4 +1,11 @@
-# GiftMate - Relationship Companion App
+<div align="center">
+  <img src="assets/images/logo.svg" alt="GiftMate Logo" width="200" />
+</div>
+
+## Overview
+
+GiftMate - A smart companion app that helps you track important dates, manage gift ideas, and strengthen relationships by never missing special occasions. Perfect for remembering birthdays, anniversaries, and creating thoughtful gift lists for your loved ones.
+
 
 ## Tech Stack
 - **Frontend**: React Native, Expo

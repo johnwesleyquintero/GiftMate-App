@@ -131,14 +131,13 @@ export const ThemeProvider = ({
 
     return (
         <ThemeContext.Provider
-      value= {{
-        theme: isDark ? darkTheme : lightTheme,
-            toggleTheme,
-            isDarkMode: isDark,
-      }
-}
-    >
-    { children }
-    </ThemeContext.Provider>
-  );
+            value={{
+                theme: isDark ? darkTheme : lightTheme,
+                toggleTheme,
+                isDarkMode: isDark,
+            }}
+        >
+            {children}
+        </ThemeContext.Provider>
+    );
 };
