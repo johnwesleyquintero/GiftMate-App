@@ -10,7 +10,9 @@ const ThemeToggle = () => {
     <TouchableOpacity
       onPress={toggleTheme}
       style={styles.container}
-      accessibilityLabel={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+      accessibilityLabel={
+        isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
+      }
       accessibilityRole="button"
     >
       {isDarkMode ? (

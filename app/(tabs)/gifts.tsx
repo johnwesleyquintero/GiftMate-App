@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 
 type Gift = {
   id: string;

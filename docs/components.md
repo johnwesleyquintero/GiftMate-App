@@ -1,20 +1,24 @@
 # Component Documentation Guide
 
 ## RemindersScreen Component
+
 **Location**: app/(tabs)/reminders.tsx
 
 **Props**:
+
 - `navigation`: React Navigation prop
 - `route`: React Navigation route object
 
 **State Management**:
+
 - Toggles reminder preferences using useState
 - Manages notification settings with contextual switches
 
 **Key Features**:
+
 ```tsx
 // Example usage in parent component
-<RemindersScreen 
+<RemindersScreen
   navigation={navigation}
   route={route}
 />
@@ -28,7 +32,9 @@
 ```
 
 ## NotificationToggle Component
+
 **Reusable Switch Component**:
+
 ```tsx
 interface NotificationToggleProps {
   label: string;
@@ -36,7 +42,11 @@ interface NotificationToggleProps {
   onToggle: () => void;
 }
 
-const NotificationToggle = ({ label, value, onToggle }: NotificationToggleProps) => (
+const NotificationToggle = ({
+  label,
+  value,
+  onToggle,
+}: NotificationToggleProps) => (
   <View style={styles.option}>
     <Text style={styles.optionText}>{label}</Text>
     <Switch
@@ -49,6 +59,7 @@ const NotificationToggle = ({ label, value, onToggle }: NotificationToggleProps)
 ```
 
 ## Documentation Standards
+
 1. All components must include:
    - PropType definitions
    - State management description

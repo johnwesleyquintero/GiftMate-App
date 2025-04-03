@@ -6,7 +6,7 @@
  * @param {function} [props.onError] - Error handler callback (optional)
  * @param {function} [props.onReset] - Reset handler callback (optional)
  * @example
- * <ErrorBoundary 
+ * <ErrorBoundary
  *   fallback={<ErrorScreen />}
  *   onError={(error) => trackError(error)}
  * >
@@ -17,7 +17,7 @@ export default function ErrorBoundary({
   children,
   fallback,
   onError,
-  onReset
+  onReset,
 }: {
   children: React.ReactNode;
   fallback: React.ReactNode;
@@ -29,17 +29,17 @@ export default function ErrorBoundary({
       backgroundColor: theme.colors.cardBackground,
       borderRadius: theme.radii.md,
       padding: theme.spacing.lg,
-      margin: theme.spacing.xl
+      margin: theme.spacing.xl,
     },
     errorText: {
       ...theme.typography.body,
-      color: theme.colors.error
+      color: theme.colors.error,
     },
     retryButton: {
       backgroundColor: theme.colors.primary,
       padding: theme.spacing.md,
-      borderRadius: theme.radii.sm
-    }
+      borderRadius: theme.radii.sm,
+    },
   });
 }
 

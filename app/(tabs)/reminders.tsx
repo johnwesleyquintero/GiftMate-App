@@ -3,16 +3,17 @@ import { useState } from 'react';
 
 export default function RemindersScreen() {
   const [eventsEnabled, setEventsEnabled] = useState(true);
-const [giftSuggestionsEnabled, setGiftSuggestionsEnabled] = useState(true);
-const [dateIdeasEnabled, setDateIdeasEnabled] = useState(false);
-const [weekBeforeEnabled, setWeekBeforeEnabled] = useState(true);
-const [dayBeforeEnabled, setDayBeforeEnabled] = useState(true);
-const [dayOfEnabled, setDayOfEnabled] = useState(true);
+  const [giftSuggestionsEnabled, setGiftSuggestionsEnabled] = useState(true);
+  const [dateIdeasEnabled, setDateIdeasEnabled] = useState(false);
+  const [weekBeforeEnabled, setWeekBeforeEnabled] = useState(true);
+  const [dayBeforeEnabled, setDayBeforeEnabled] = useState(true);
+  const [dayOfEnabled, setDayOfEnabled] = useState(true);
 
-const toggleSwitch = useCallback(
-  (setter: React.Dispatch<React.SetStateAction<boolean>>) => () => setter(prev => !prev),
-  []
-);
+  const toggleSwitch = useCallback(
+    (setter: React.Dispatch<React.SetStateAction<boolean>>) => () =>
+      setter((prev) => !prev),
+    [],
+  );
 
   return (
     <ScrollView style={styles.container}>

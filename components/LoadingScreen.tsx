@@ -11,20 +11,27 @@ export const LoadingScreen = ({ error, progress }: LoadingScreenProps) => {
   const { theme } = useTheme();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
       <View style={styles.content}>
-        <ActivityIndicator 
+        <ActivityIndicator
           size="large"
           color={theme.colors.primary}
           accessibilityLabel="Loading indicator"
         />
-        
+
         {progress !== undefined && (
           <View style={styles.progressContainer}>
-            <View style={[styles.progressBar, { 
-              width: `${progress}%`,
-              backgroundColor: theme.colors.primary 
-            }]} />
+            <View
+              style={[
+                styles.progressBar,
+                {
+                  width: `${progress}%`,
+                  backgroundColor: theme.colors.primary,
+                },
+              ]}
+            />
           </View>
         )}
 

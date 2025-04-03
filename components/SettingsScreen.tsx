@@ -8,11 +8,17 @@ export default function SettingsScreen() {
   const { theme } = useTheme();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <Text style={[styles.title, { color: theme.colors.text }]}>App Settings</Text>
-      
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
+      <Text style={[styles.title, { color: theme.colors.text }]}>
+        App Settings
+      </Text>
+
       <View style={styles.settingItem}>
-        <Text style={[styles.label, { color: theme.colors.text }]}>Dark Mode</Text>
+        <Text style={[styles.label, { color: theme.colors.text }]}>
+          Dark Mode
+        </Text>
         <ThemeToggle />
       </View>
 

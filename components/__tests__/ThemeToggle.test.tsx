@@ -17,21 +17,21 @@ describe('ThemeToggle', () => {
       theme: {
         colors: {
           text: '#000000',
-          cardBackground: '#ffffff'
+          cardBackground: '#ffffff',
         },
         spacing: {
-          sm: 4
+          sm: 4,
         },
         radii: {
-          md: 8
-        }
-      }
+          md: 8,
+        },
+      },
     });
   });
 
   it('renders sun icon in light mode', () => {
     render(<ThemeToggle />);
-    
+
     const button = screen.getByRole('button');
     expect(button).toBeTruthy();
     expect(screen.getByLabelText('Switch to dark mode')).toBeTruthy();
@@ -44,39 +44,39 @@ describe('ThemeToggle', () => {
       theme: {
         colors: {
           text: '#ffffff',
-          cardBackground: '#000000'
+          cardBackground: '#000000',
         },
         spacing: {
-          sm: 4
+          sm: 4,
         },
         radii: {
-          md: 8
-        }
-      }
+          md: 8,
+        },
+      },
     });
 
     render(<ThemeToggle />);
-    
+
     expect(screen.getByLabelText('Switch to light mode')).toBeTruthy();
   });
 
   it('calls toggleTheme when pressed', () => {
     render(<ThemeToggle />);
-    
+
     const button = screen.getByRole('button');
     fireEvent.press(button);
-    
+
     expect(mockToggleTheme).toHaveBeenCalledTimes(1);
   });
 
   it('applies correct styles', () => {
     render(<ThemeToggle />);
-    
+
     const button = screen.getByRole('button');
     expect(button.props.style).toContainEqual({
       padding: 4,
       borderRadius: 8,
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
     });
   });
-}));
+});

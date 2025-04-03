@@ -9,12 +9,12 @@ describe('GiftCard', () => {
     price: 29.99,
     recipient: 'John Doe',
     occasion: 'Birthday',
-    status: 'pending'
+    status: 'pending',
   };
 
   it('renders gift information correctly', () => {
     render(<GiftCard gift={mockGift} />);
-    
+
     expect(screen.getByText(mockGift.name)).toBeTruthy();
     expect(screen.getByText(mockGift.recipient)).toBeTruthy();
     expect(screen.getByText(mockGift.occasion)).toBeTruthy();

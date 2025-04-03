@@ -1,9 +1,11 @@
 # GiftCard Component
 
 ## Purpose
+
 Displays gift items in a consistent card format with image, title, and description.
 
 ## Props
+
 - `gift`: Gift object containing:
   - `id`: Unique identifier
   - `name`: Display name
@@ -13,6 +15,7 @@ Displays gift items in a consistent card format with image, title, and descripti
 - `style`: Custom styling props
 
 ## Usage Example
+
 ```tsx
 import { GiftCard } from '../components/GiftCard';
 
@@ -30,6 +33,7 @@ export const GiftList = ({ gifts }) => (
 ```
 
 ## Best Practices
+
 1. Use memoization for lists
 2. Preload images using expo-image
 3. Maintain aspect ratio of 3:2 for images
@@ -37,6 +41,7 @@ export const GiftList = ({ gifts }) => (
 5. Implement error handling for broken images
 
 ## Accessibility Features
+
 - Screen reader labels
 - Proper contrast ratios
 - Zoom compatibility

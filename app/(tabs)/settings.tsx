@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Switch, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Switch,
+  ScrollView,
+} from 'react-native';
 import { useState } from 'react';
 import { ChevronRight } from 'lucide-react-native';
 

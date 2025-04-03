@@ -18,7 +18,7 @@ describe('ErrorBoundary', () => {
     const { getByText } = render(
       <ErrorBoundary fallback={<div>Error occurred</div>}>
         <Text>Test content</Text>
-      </ErrorBoundary>
+      </ErrorBoundary>,
     );
 
     expect(getByText('Test content')).toBeTruthy();
@@ -26,12 +26,12 @@ describe('ErrorBoundary', () => {
 
   it('renders fallback UI when error occurs', () => {
     const { getByText } = render(
-      <ErrorBoundary 
+      <ErrorBoundary
         fallback={<Text>Error occurred</Text>}
         onError={mockOnError}
       >
         <ErrorComponent />
-      </ErrorBoundary>
+      </ErrorBoundary>,
     );
 
     expect(getByText('Error occurred')).toBeTruthy();
@@ -40,12 +40,12 @@ describe('ErrorBoundary', () => {
 
   it('calls onReset when reset is triggered', () => {
     const { getByText } = render(
-      <ErrorBoundary 
+      <ErrorBoundary
         fallback={<Text>Error occurred</Text>}
         onReset={mockOnReset}
       >
         <ErrorComponent />
-      </ErrorBoundary>
+      </ErrorBoundary>,
     );
 
     fireEvent.press(getByText('Try again'));
@@ -54,11 +54,9 @@ describe('ErrorBoundary', () => {
 
   it('applies correct styles to error container', () => {
     const { getByTestId } = render(
-      <ErrorBoundary 
-        fallback={<Text>Error occurred</Text>}
-      >
+      <ErrorBoundary fallback={<Text>Error occurred</Text>}>
         <ErrorComponent />
-      </ErrorBoundary>
+      </ErrorBoundary>,
     );
 
     const container = getByTestId('error-boundary-container');
@@ -66,7 +64,7 @@ describe('ErrorBoundary', () => {
       backgroundColor: expect.any(String),
       borderRadius: expect.any(Number),
       padding: expect.any(Number),
-      margin: expect.any(Number)
+      margin: expect.any(Number),
     });
   });
 });

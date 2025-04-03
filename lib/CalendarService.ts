@@ -1,4 +1,7 @@
-async requestPermissions() {
+import * as Calendar from 'expo-calendar';
+
+export class CalendarService {
+  async requestPermissions() {
     try {
       const { status } = await Calendar.requestCalendarPermissionsAsync();
       return status === 'granted';
@@ -17,10 +20,10 @@ async requestPermissions() {
       const events = await Calendar.getEventsAsync(
         [Calendar.DEFAULT],
         startDate,
-        endDate
+        endDate,
       );
 
-      return events.map(event => ({
+      return events.map((event) => ({
         title: event.title,
         start: event.startDate,
         end: event.endDate,
@@ -28,8 +31,8 @@ async requestPermissions() {
         metadata: {
           location: event.location,
           notes: event.notes,
-          attendees: event.attendees?.length || 0
-        }
+          attendees: event.attendees?.length || 0,
+        },
       }));
     } catch (error) {
       console.error('Calendar sync error:', error);
@@ -41,11 +44,14 @@ async requestPermissions() {
     const keywords = {
       anniversary: ['anniversary', 'years together', 'milestone'],
       birthday: ['birthday', 'bday', 'born today'],
-      holiday: ['christmas', 'valentine', 'easter', "mother's day"]
+      holiday: ['christmas', 'valentine', 'easter', "mother's day"],
     };
 
     const lowerTitle = event.title.toLowerCase();
-    return Object.entries(keywords).find(([_, terms]) => 
-      terms.some(term => lowerTitle.includes(term))
-    )?.[0] || 'other';
+    return (
+      Object.entries(keywords).find(([_, terms]) =>
+        terms.some((term) => lowerTitle.includes(term)),
+      )?.[0] || 'other'
+    );
   }
+}
