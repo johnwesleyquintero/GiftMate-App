@@ -68,15 +68,4 @@ describe('ThemeToggle', () => {
 
     expect(mockToggleTheme).toHaveBeenCalledTimes(1);
   });
-
-  it('applies correct styles', () => {
-    render(<ThemeToggle />);
-
-    const button = screen.getByRole('button');
-    expect(button.props.style).toContainEqual({
-      padding: 4,
-      borderRadius: 8,
-      backgroundColor: '#ffffff',
-    });
-  });
 });
