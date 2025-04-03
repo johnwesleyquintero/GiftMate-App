@@ -1,5 +1,9 @@
 <div align="center">
-  <img src="assets/images/logo.svg" alt="GiftMate Logo" width="200" />
+  <img src="assets/logo.svg" alt="GiftMate Logo" width="400" />
+
+  [![Netlify Status](https://api.netlify.com/api/v1/badges/0a2e53da-723e-4bb4-ae3b-6113fc5e96ea/deploy-status)](https://app.netlify.com/sites/giftmate-dev/deploys)
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+  [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)]()
 </div>
 
 ## Overview
